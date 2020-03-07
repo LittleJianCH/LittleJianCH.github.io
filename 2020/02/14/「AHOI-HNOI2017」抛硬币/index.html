@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="「AHOI / HNOI2017」抛硬币"/><meta name="keywords" content="OI, 数论, 组合数, 扩展卢卡斯, Little Jian" /><link rel="alternate" href="/atom.xml" title="Little Jian"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://yoursite.com/2020/02/14/「AHOI-HNOI2017」抛硬币/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":true};
+</script>
+
+    <title>「AHOI / HNOI2017」抛硬币 - Little Jian</title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Little Jian</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/emacs/">
+        <li class="mobile-menu-item">Emacs
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Little Jian</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/emacs/">
+            Emacs
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">「AHOI / HNOI2017」抛硬币
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-14
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目："><span class="toc-text">题目：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路："><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码："><span class="toc-text">代码：</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h1><p>小 A 和小 B 是一对好朋友，他们经常一起愉快的玩耍。最近小 B 沉迷于**师手游，天天刷本，根本无心搞学习。但是已经入坑了几个月，却一次都没有抽到 SSR，让他非常怀疑人生。</p>
+<p>勤勉的小 A 为了劝说小 B 早日脱坑，认真学习，决定以抛硬币的形式让小 B 明白他是一个彻彻底底的非洲人，从而对这个游戏绝望。两个人同时抛 $b$ 次硬币，如果小 A 的正面朝上的次数大于小 B 正面朝上的次数，则小 A 获胜。</p>
+<p>但事实上，小 A 也曾经沉迷过拉拉游戏，而且他一次 UR 也没有抽到过，所以他对于自己的运气也没有太大把握。所以他决定在小 B 没注意的时候作弊，悄悄地多抛几次硬币，当然，为了不让小 B 怀疑，他不会抛太多次。现在小 A 想问你，在多少种可能的情况下，他能够胜过小 B 呢？由于答案可能太大，所以你只需要输出答案在十进制表示下的最后 $k$ 位即可。</p>
+<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><blockquote>
+<p>下文所有的分式运算 $\frac{a}{b}$ 除了常数以外均下取整。</p>
+</blockquote>
+<p>根据题意，题目要求的就是这个式子：</p>
+<p>$$<br>\sum_{i=0}^a\sum_{j=0}^b[i&gt;j]{a\choose i}{b\choose j}<br>$$</p>
+<p>考虑枚举 $d=i-j$ ，得到（直接设不合法的组合数等于 $0$ ，这样上界也可以丢掉了）：</p>
+<p>$$<br>\sum_{d=0}\sum_{j=0}{a\choose j+d}{b\choose j}<br>$$</p>
+<p>然后把 $b\choose j$ 改写成 $b\choose b - j$ ，根据 $\sum_{i=0}{a\choose c+i}{b\choose d-i}={a+b\choose c+d}$ 得到：</p>
+<p>$$<br>\sum_{d=b+1}{a+b\choose d}<br>$$</p>
+<p>这个式子看起来是很可搞了，但是因为模数都是 $10^k$ ，所以不能直接用 $\text{Lucas}$  定理求组合数…..</p>
+<p>先对模数做质因子分解（在这里就是拆成 $2^a\times 5^b$ 了），然后分开计算 ${a\choose b}\bmod p^k$  ，之后再用中国剩余定理合并一下。为了能实现除法，所以要把 $n!$  的结果表示成 $a\times p^t$ 。</p>
+<p>对于 $n!$ ，先把所有含有 $p$ 的数字提出来得到一个 $\frac{n}{p}!\times p$ 。而对于剩下的，因为这里 $p^k$ 最大也只有 $5^9$，所以直接把 $1..n$ 每 $p^k$ 个分成一组，预处理每个前缀的积 $f[]$（ $p$ 的倍数看作 $1$ ），那不含 $p$ 的积也就等于 $f[p^k-1]^{\frac{n}{p^k}}\times f[n\bmod p^k]$ 。如果把幂次留到最后计算，计算整个 $n!$ 的复杂度就是 $O(\log n)$ 了。组合数的复杂度也是同样。</p>
+<p>这样前面的式子就是 $O(a\log a)$  的，还是不行。注意到 $a-b$ 的值不大，所以可以利用组合数的性质快速计算出 $\sum_{i=\frac{a+b}{2}+1}^a{a+b\choose i}$  ，然后暴力计算 $i=[b+1,..,\frac{a+b}{2}]$。</p>
+<p>当 $a+b$  为奇数的时候，这个值就是 $2^{a+b-1}$ 。但是偶数的时候是（设 $d=\frac{a+b}{2}$ ）：</p>
+<p>$$<br>2^{a+b-1}+\frac{1}{2}{a+b\choose d}<br>$$</p>
+<p>出现了一个 $\frac{1}{2}$ ，但是在模 $10^k$ 下是没有 $2$ 的逆元的，所以考虑拆开它：</p>
+<p>$$<br>\begin{aligned}<br>    {2a\choose a} &amp;= {2a-1\choose a} + {2a-1\choose a-1} \\<br>    &amp;= 2{2a-1\choose a}<br>\end{aligned}<br>$$</p>
+<p>这样就能处理这个 $\frac{1}{2}$ 了，总的复杂度就做到了 $O(T(a-b)\log a)$ 。</p>
+<h1 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i, a, b) for (ll i(a), i##_END_(b); i &lt;= i##_END_; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> drep(i, a, b) for (ll i(a), i##_END_(b); i &gt;= i##_END_; i--)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> P10[] = &#123; <span class="number">1</span>, <span class="number">10</span>, <span class="number">100</span>, <span class="number">1000</span>, <span class="number">10000</span>, <span class="number">100000</span>, <span class="number">1000000</span>, <span class="number">10000000</span>, <span class="number">100000000</span>, <span class="number">1000000000</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1953125</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">extgcd</span><span class="params">(ll a, ll b, ll &amp;x, ll &amp;y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">0</span>) &#123;</span><br><span class="line">        x = <span class="number">1</span>;</span><br><span class="line">        y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    extgcd(b, a % b, y, x);</span><br><span class="line">    y -= a / b * x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inv</span><span class="params">(ll a, ll b)</span> </span>&#123;</span><br><span class="line">    ll x, y;</span><br><span class="line">    extgcd(a, b, x, y);</span><br><span class="line">    <span class="keyword">return</span> (x % b + b) % b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CRT</span> &#123;</span></span><br><span class="line">    ll A, M;</span><br><span class="line">    CRT() &#123;</span><br><span class="line">        A = <span class="number">0</span>;</span><br><span class="line">        M = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ll <span class="title">gcd</span><span class="params">(ll a, ll b)</span> </span>&#123; <span class="keyword">return</span> b ? gcd(b, a % b) : a; &#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lcm(a, b) ((a) / gcd(a, b) * (b))</span></span><br><span class="line">    <span class="function">ll <span class="title">calc</span><span class="params">(ll a, ll b, ll c)</span> </span>&#123; <span class="keyword">return</span> inv(a, b) * c % b; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(ll a, ll m)</span> </span>&#123;</span><br><span class="line">        ll k = calc(M, m, a - A);</span><br><span class="line">        A += M * k;</span><br><span class="line">        M = lcm(M, m);</span><br><span class="line">        A %= M;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Data</span> &#123;</span></span><br><span class="line">    ll a, b;  <span class="comment">// a * p^b</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qkpow</span><span class="params">(ll a, ll k, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (; k; k &gt;&gt;= <span class="number">1</span>, a = a * a % m)</span><br><span class="line">        <span class="keyword">if</span> (k &amp; <span class="number">1</span>)</span><br><span class="line">            ans = ans * a % m;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> f[<span class="number">2</span>][<span class="number">10</span>][N];</span><br><span class="line"><span class="function">Data <span class="title">fac</span><span class="params">(ll n, <span class="keyword">int</span> p, <span class="keyword">int</span> k, <span class="keyword">int</span> pk, ll &amp;cnt)</span> </span>&#123;</span><br><span class="line">    Data ans = (Data)&#123; <span class="number">1</span>, <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"!"</span>);</span><br><span class="line">    <span class="keyword">while</span> (n != <span class="number">0</span>) &#123;</span><br><span class="line">        cnt += n / pk;</span><br><span class="line">        ans.a = ans.a * f[p == <span class="number">5</span>][k][n % pk] % pk;</span><br><span class="line">        ans.b += n / p;</span><br><span class="line">        n /= p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calc</span><span class="params">(ll a, ll b, <span class="keyword">int</span> p, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pk = <span class="number">1</span>;</span><br><span class="line">    rep(i, <span class="number">1</span>, k) pk *= p;</span><br><span class="line">    ll c1 = <span class="number">0</span>, c2 = <span class="number">0</span>, c3 = <span class="number">0</span>;</span><br><span class="line">    Data d1 = fac(a, p, k, pk, c1);</span><br><span class="line">    Data d2 = fac(b, p, k, pk, c2);</span><br><span class="line">    Data d3 = fac(a - b, p, k, pk, c3);</span><br><span class="line">    <span class="keyword">int</span> ans = qkpow(f[(p == <span class="number">5</span>)][k][pk - <span class="number">1</span>], c1 - c2 - c3, pk);</span><br><span class="line">    ans = (ll)ans * d1.a % pk * inv(d2.a, pk) % pk * inv(d3.a, pk) % pk;</span><br><span class="line">    ans = (ll)ans * qkpow(p, d1.b - d2.b - d3.b, pk) % pk;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">extLucas</span><span class="params">(ll a, ll b, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans1 = calc(a, b, <span class="number">2</span>, k);</span><br><span class="line">    <span class="keyword">int</span> ans2 = calc(a, b, <span class="number">5</span>, k);</span><br><span class="line">    <span class="keyword">int</span> pk2 = <span class="number">1</span>, pk5 = <span class="number">1</span>;</span><br><span class="line">    rep(i, <span class="number">1</span>, k) &#123;</span><br><span class="line">        pk2 *= <span class="number">2</span>;</span><br><span class="line">        pk5 *= <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    CRT crt;</span><br><span class="line">    crt.insert(ans1, pk2);</span><br><span class="line">    crt.insert(ans2, pk5);</span><br><span class="line">    <span class="keyword">return</span> crt.A;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll a, b;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    rep(d, <span class="number">0</span>, <span class="number">1</span>) rep(k, <span class="number">1</span>, <span class="number">9</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> p = (d ? <span class="number">5</span> : <span class="number">2</span>), pk = <span class="number">1</span>;</span><br><span class="line">        rep(_, <span class="number">1</span>, k) pk *= p;</span><br><span class="line">        f[d][k][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        rep(i, <span class="number">1</span>, pk) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i % p == <span class="number">0</span>)</span><br><span class="line">                f[d][k][i] = f[d][k][i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                f[d][k][i] = (ll)f[d][k][i - <span class="number">1</span>] * i % pk;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (~<span class="built_in">scanf</span>(<span class="string">"%lld%lld%d"</span>, &amp;a, &amp;b, &amp;k)) &#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> ((a + b) &amp; <span class="number">1</span>) &#123;</span><br><span class="line">            ans = qkpow(<span class="number">2</span>, a + b - <span class="number">1</span>, P10[k]);</span><br><span class="line">            rep(t, b + <span class="number">1</span>, (a + b) / <span class="number">2</span>)(ans += extLucas(a + b, t, k)) %= P10[k];</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%0*d\n"</span>, k, ans);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ans = (qkpow(<span class="number">2</span>, a + b - <span class="number">1</span>, P10[k]) - extLucas(a + b - <span class="number">1</span>, (a + b) / <span class="number">2</span>, k) + P10[k]) % P10[k];</span><br><span class="line">            rep(t, b + <span class="number">1</span>, (a + b) / <span class="number">2</span>)(ans += extLucas(a + b, t, k)) %= P10[k];</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%0*d\n"</span>, k, ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/OI/">OI</a>
+            <a href="/tags/%E6%95%B0%E8%AE%BA/">数论</a>
+            <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0/">组合数</a>
+            <a href="/tags/%E6%89%A9%E5%B1%95%E5%8D%A2%E5%8D%A1%E6%96%AF/">扩展卢卡斯</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/2020/03/07/%E3%80%8CJOI-2016-Final%E3%80%8D-%E7%B8%84%E5%BC%B5%E3%82%8A/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">「JOI 2016 Final」 縄張り</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2020/02/13/%E3%80%8CJOISC-2016-Day-4%E3%80%8D%E6%9C%80%E6%82%AA%E3%81%AE%E8%A8%98%E8%80%85-2/">
+        <span class="next-text nav-default">「JOISC 2016 Day 4」最悪の記者 2</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:chenhowe0529@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/LittleJianCH" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/little-jian" target="_blank" rel="noopener" class="iconfont icon-zhihu" title="zhihu"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chen Howe</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

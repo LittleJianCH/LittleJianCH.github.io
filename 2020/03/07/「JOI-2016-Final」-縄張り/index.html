@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="「JOI 2016 Final」 縄張り"/><meta name="keywords" content="OI, 模拟, 同余, Little Jian" /><link rel="alternate" href="/atom.xml" title="Little Jian"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://yoursite.com/2020/03/07/「JOI-2016-Final」-縄張り/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":true};
+</script>
+
+    <title>「JOI 2016 Final」 縄張り - Little Jian</title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Little Jian</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/emacs/">
+        <li class="mobile-menu-item">Emacs
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Little Jian</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/emacs/">
+            Emacs
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">「JOI 2016 Final」 縄張り
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-03-07
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目："><span class="toc-text">题目：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路："><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码："><span class="toc-text">代码：</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h1><p>有一个平面直角坐标系。JOI 君位于 $(0, 0)$ 。<br>JOI 君<strong>每天</strong>都按照一个固定的程序移动一轮。该程序有 $N$ 个步骤，用一个长度为 $N$ 的字符串 $S$ 描述。这个字符串仅由大写字母 $\texttt{E, N, W, S}$ 构成。<br>左数第 $i$ 个字符 $C_i (1\leqslant i\leqslant N)$ 表示 JOI 君会移动到哪里。如果在执行步骤 $i$ 前，JOI 君位于 $(x, y)$：</p>
+<ul>
+<li>$C_i=\texttt{E}$：JOI 君将移动到 $(x+1,y)$；</li>
+<li>$C_i=\texttt{N}$：JOI 君将移动到 $(x,y+1)$；</li>
+<li>$C_i=\texttt{W}$：JOI 君将移动到 $(x-1,y)$；</li>
+<li>$C_i=\texttt{S}$：JOI 君将移动到 $(x,y-1)$。</li>
+</ul>
+<p>次日 JOI 君会从他前一天停止的位置开始执行程序。<br>JOI 君会把 $(0, 0)$ 以及每个步骤结束后到达的点作标记。开始时 JOI 君没有标记任何点。$K$ 天后，对于任意整数 $a, b$，如果 $(a,b),$ $(a+1,b),$ $(a,b+1),$ $(a+1,b+1)$ 这四个点都被标记了一次或以上，以这四个点为顶点的 $1\times 1$ 的正方形就属于 JOI 君的领地。<br>请问 $K$ 天后，JOI 君有多少个领地。</p>
+<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><p>设起点为 $(0, 0)$， 终点是 $(p, q)$， 那么第 $k$ 天的位置就是在第一天的基础上加一个 $(k-1)\times (p, q)$ ，因此就可以考虑把点表示成：</p>
+<p>$$(x + k\times p, y + k\times q), k \in [l, r]$$</p>
+<p>预处理这个只要模拟一次就好了。</p>
+<p>因为每个点都可能被走到多次，所以每个点的 $k$ 应该都是好几段的。而以 $(x-1, y-1)\to (x, y)$ 对答案的贡献即为这个 $4$ 个点的区间交集长度。</p>
+<p>求交集的话只要把每个点的区间处理成互不相交并升序的，然后暴力扫就好了，反正扫到的次数是 $n$ 级别的。</p>
+<p>再加上排序和 <code>map</code> ，总复杂度是 $O(n\log n)$ 。</p>
+<p>稍微要注意一下的就是 $0-1=-1$ ，所以这里要特殊搞一下。</p>
+<h1 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i, a, b) for(int i = (a), i##_END_(b); i &lt;= i##_END_; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> drep(i, a, b) for(int i = (a), i##_END_(b); i &gt;= i##_END_; i--)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomax</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> a &lt; b ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomin</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> b &lt; a ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">std</span>::pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">map</span>&lt;pii, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;pii&gt; &gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> s[N];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> S(x, c1, c2, c3, c4) &#123;                  \</span></span><br><span class="line">        <span class="keyword">if</span>((x) == <span class="string">'N'</span>) &#123;c1;&#125;                    \</span><br><span class="line">        <span class="keyword">if</span>((x) == <span class="string">'S'</span>) &#123;c2;&#125;                    \</span><br><span class="line">        <span class="keyword">if</span>((x) == <span class="string">'W'</span>) &#123;c3;&#125;                    \</span><br><span class="line">        <span class="keyword">if</span>((x) == <span class="string">'E'</span>) &#123;c4;&#125;                    \</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> vecx[N], vecy[N];</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">0</span>, y = <span class="number">0</span>;</span><br><span class="line">    rep(i, <span class="number">1</span>, n) &#123;</span><br><span class="line">        S(s[i], y--, y++, x--, x++);</span><br><span class="line">        vecx[i] = x; vecy[i] = y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">std</span>::<span class="built_in">abs</span>(x) &lt; <span class="built_in">std</span>::<span class="built_in">abs</span>(y)) &#123;</span><br><span class="line">        <span class="built_in">std</span>::swap(x, y);</span><br><span class="line">        rep(i, <span class="number">0</span>, n) <span class="built_in">std</span>::swap(vecx[i], vecy[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        x = -x;</span><br><span class="line">        rep(i, <span class="number">0</span>, n) vecx[i] = -vecx[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(y &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        y = -y;</span><br><span class="line">        rep(i, <span class="number">0</span>, n) vecy[i] = -vecy[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(x == <span class="number">0</span>) &#123;</span><br><span class="line">        rep(i, <span class="number">0</span>, n)</span><br><span class="line">            mp[&#123;vecx[i], vecy[i]&#125;].push_back(&#123;<span class="number">0</span>, <span class="number">0</span>&#125;);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        rep(i, <span class="number">0</span>, n) &#123;</span><br><span class="line">            <span class="keyword">int</span> t;</span><br><span class="line">            t = vecx[i] / x;</span><br><span class="line">            <span class="keyword">if</span>(vecx[i] - t * x &lt; <span class="number">0</span>) t--;</span><br><span class="line">            mp[&#123;vecx[i] - t * x, vecy[i] - t * y&#125;].push_back(&#123;t, t + k - <span class="number">1</span>&#125;);</span><br><span class="line">            <span class="keyword">if</span>(vecx[i] - t * x == x - <span class="number">1</span>) &#123;</span><br><span class="line">                t++;</span><br><span class="line">                mp[&#123;vecx[i] - t * x, vecy[i] - t * y&#125;].push_back(&#123;t, t + k - <span class="number">1</span>&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;pii&gt; <span class="title">merge</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;pii&gt; &amp;a, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;pii&gt; &amp;b)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;pii&gt; ans;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; a.size() &amp;&amp; j &lt; b.size()) &#123;</span><br><span class="line">        pii x = a[i], y = b[j];</span><br><span class="line">        <span class="keyword">int</span> l = <span class="built_in">std</span>::max(x.first, y.first), r = <span class="built_in">std</span>::min(x.second, y.second);</span><br><span class="line">        <span class="keyword">if</span>(l &lt;= r) ans.push_back(&#123;l, r&#125;);</span><br><span class="line">        <span class="keyword">if</span>(x.second &lt; y.second) i++;</span><br><span class="line">        <span class="keyword">else</span> j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(mp.find(&#123;x - <span class="number">1</span>, y - <span class="number">1</span>&#125;) == mp.end()) <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">    <span class="keyword">if</span>(mp.find(&#123;x, y - <span class="number">1</span>&#125;) == mp.end()) <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">    <span class="keyword">if</span>(mp.find(&#123;x - <span class="number">1</span>, y&#125;) == mp.end()) <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;pii&gt; tmp;</span><br><span class="line">    tmp = merge(mp[&#123;x - <span class="number">1</span>, y - <span class="number">1</span>&#125;], mp[&#123;x, y - <span class="number">1</span>&#125;]);</span><br><span class="line">    tmp = merge(mp[&#123;x - <span class="number">1</span>, y&#125;], tmp);</span><br><span class="line">    tmp = merge(mp[&#123;x, y&#125;], tmp);</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> o : tmp) ans += o.second - o.first + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// freopen("data.in", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n, k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span>, s + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(init(n, k)) &#123;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;p : mp) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = p.first.first, y = p.first.second;</span><br><span class="line">            <span class="keyword">if</span>(mp.find(&#123;x - <span class="number">1</span>, y - <span class="number">1</span>&#125;) == mp.end()) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(mp.find(&#123;x, y - <span class="number">1</span>&#125;) == mp.end()) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(mp.find(&#123;x - <span class="number">1</span>, y&#125;) == mp.end()) <span class="keyword">continue</span>;</span><br><span class="line">            ans++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;p : mp) &#123;</span><br><span class="line">        <span class="built_in">std</span>::sort(p.second.begin(), p.second.end());</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;pii&gt; tmp;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;o : p.second) &#123;</span><br><span class="line">            <span class="keyword">if</span>(tmp.empty() || o.first &gt; tmp.back().second + <span class="number">1</span>)</span><br><span class="line">                tmp.push_back(o);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                tmp.back().second = o.second;</span><br><span class="line">        &#125;</span><br><span class="line">        p.second = tmp;</span><br><span class="line">        <span class="keyword">if</span>(p.first.first &gt;= <span class="number">0</span>)</span><br><span class="line">            ans += calc(p.first.first, p.first.second);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/OI/">OI</a>
+            <a href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a>
+            <a href="/tags/%E5%90%8C%E4%BD%99/">同余</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2020/02/14/%E3%80%8CAHOI-HNOI2017%E3%80%8D%E6%8A%9B%E7%A1%AC%E5%B8%81/">
+        <span class="next-text nav-default">「AHOI / HNOI2017」抛硬币</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:chenhowe0529@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/LittleJianCH" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/little-jian" target="_blank" rel="noopener" class="iconfont icon-zhihu" title="zhihu"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chen Howe</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

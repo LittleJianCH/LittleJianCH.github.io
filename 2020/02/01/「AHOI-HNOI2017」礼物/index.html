@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="「AHOI / HNOI2017」礼物"/><meta name="keywords" content="OI, 多项式乘法, Little Jian" /><link rel="alternate" href="/atom.xml" title="Little Jian"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://yoursite.com/2020/02/01/「AHOI-HNOI2017」礼物/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":true};
+</script>
+
+    <title>「AHOI / HNOI2017」礼物 - Little Jian</title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Little Jian</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/emacs/">
+        <li class="mobile-menu-item">Emacs
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Little Jian</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/emacs/">
+            Emacs
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">「AHOI / HNOI2017」礼物
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-01
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目："><span class="toc-text">题目：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路："><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码："><span class="toc-text">代码：</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h1><p>我的室友最近喜欢上了一个可爱的小女生。马上就要到她的生日了，他决定买一对情侣手环，一个留给自己，一个送给她。每个手环上各有 $n$ 个装饰物，并且每个装饰物都有一定的亮度。</p>
+<p>但是在她生日的前一天，我的室友突然发现他好像拿错了一个手环，而且已经没时间去更换它了！他只能使用一种特殊的方法，将其中一个手环中所有装饰物的亮度增加一个相同的整数 $c$（可能是负数）。并且由于这个手环是一个圆，可以以任意的角度旋转它，但是由于上面装饰物的方向是固定的，所以手环不能翻转。需要在经过亮度改造和旋转之后，使得两个手环的差异值最小。</p>
+<p>在将两个手环旋转且装饰物对齐了之后，从对齐的某个位置开始逆时针方向对装饰物编号 $1, 2,\cdots, n$，其中 $n$ 为每个手环的装饰物个数，第一个手环的 $i$ 号位置装饰物亮度为 $x_i$，第二个手环的 $i$ 号位置装饰物亮度为 $y_i$，两个手环之间的差异值为（参见输入输出样例和样例解释）：</p>
+<p>$$<br>\sum_{i = 1}^n (x_i - y_i)^2<br>$$</p>
+<p>麻烦你帮他计算一下，进行调整（亮度改造和旋转），使得两个手环之间的差异值最小，这个最小值是多少呢？</p>
+<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><blockquote>
+<p>为了方便起见，设 $x_{i+n}=x_i,y_{i+n}=y_i$</p>
+</blockquote>
+<p>如果假设旋转了 $k$ 位，亮度改造为 $c$，那么最后的差异值就是：</p>
+<p>$$<br>\sum_{i=1} (x_i-y_{i+k}+c)^2<br>$$</p>
+<p>展开后得到：</p>
+<p>$$<br>\sum_{i=1}^n{x^2}+\sum_{i=1}^n{y^2}+nc^2-2\sum_{i=1}^nx_iy_{i+k}+2c\sum_{i=1}^n(x_i-y_i)<br>$$</p>
+<p>发现除了 $-2\sum_{i=1}^nx_iy_{i+k}$ 都与 $k$ 无关，那么其他的值可以通过直接暴力枚举 $c\in [-m,m]$ 来找到最小值。</p>
+<p>而对于 $p_k=-2\sum_{i=1}^nx_iy_{i+k}$ ，可以构造两个多项式 $A(t)=\sum_{i=0}^{n-1}x_{i+1}t^i$, $B(t)=\sum_{i=0}^{n-1}y_{n-i-1}t^i$。$A\times B$ 的第 $n+k-1$ 项系数就是 $p_k$ 的值。</p>
+<p>复杂度就是 $O(n(\log n+m))$。</p>
+<h1 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i, a, b) for (int i(a), i##_END_(b); i &lt;= i##_END_; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> drep(i, a, b) for (int i(a), i##_END_(b); i &gt;= i##_END_; i--)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomax</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> a &lt; b ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomin</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> b &lt; a ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">read</span>(<span class="title">T</span> &amp;<span class="title">a</span>) &#123;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> gc getchar()</span></span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">bool</span> f = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(c = gc; !<span class="built_in">isdigit</span>(c); c = gc) f |= (c == <span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">for</span>(a = <span class="number">0</span>; <span class="built_in">isdigit</span>(c); c = gc) a = (a &lt;&lt; <span class="number">1</span>) + (a &lt;&lt; <span class="number">3</span>) + c - <span class="string">'0'</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> gc</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">300005</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> PI = <span class="built_in">acos</span>(<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Poly &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Complex</span> &#123;</span></span><br><span class="line">        <span class="keyword">double</span> r, i;</span><br><span class="line">        Complex <span class="keyword">operator</span>+ (<span class="keyword">const</span> Complex a) <span class="keyword">const</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Complex) &#123;r + a.r, i + a.i&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        Complex <span class="keyword">operator</span>- (<span class="keyword">const</span> Complex a) <span class="keyword">const</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Complex) &#123;r - a.r, i - a.i&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        Complex <span class="keyword">operator</span>* (<span class="keyword">const</span> Complex a) <span class="keyword">const</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (Complex) &#123;r * a.r - i * a.i, r * a.i + i * a.r&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">int</span> rev[N];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dft</span><span class="params">(Complex a[], <span class="keyword">int</span> n, <span class="keyword">bool</span> inv)</span> </span>&#123;</span><br><span class="line">        rep(i, <span class="number">0</span>, n - <span class="number">1</span>) <span class="keyword">if</span>(rev[i] &lt; i) <span class="built_in">std</span>::swap(a[i], a[rev[i]]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> l = <span class="number">2</span>, m = <span class="number">1</span>; l &lt;= n; l &lt;&lt;= <span class="number">1</span>, m &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            Complex base = (Complex) &#123;<span class="built_in">cos</span>(PI * <span class="number">2</span> / l), (inv ? <span class="number">-1</span> : <span class="number">1</span>) * <span class="built_in">sin</span>(PI * <span class="number">2</span> / l)&#125;;</span><br><span class="line">            <span class="keyword">for</span>(Complex *p = a; p != a + n; p += l) &#123;</span><br><span class="line">                Complex w = (Complex) &#123;<span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">                rep(i, <span class="number">0</span>, m - <span class="number">1</span>) &#123;</span><br><span class="line">                    Complex t = p[i + m] * w;</span><br><span class="line">                    p[i + m] = p[i] - t;</span><br><span class="line">                    p[i] = p[i] + t;</span><br><span class="line">                    w = w * base;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Complex A[N], B[N];</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lg2</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>((<span class="number">1</span> &lt;&lt; r) &lt; x) r++;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> b[], <span class="keyword">int</span> n, <span class="keyword">int</span> m, ll c[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = lg2(n + m), r = (<span class="number">1</span> &lt;&lt; l);</span><br><span class="line">        rep(i, <span class="number">0</span>, r - <span class="number">1</span>) A[i] = B[i] = (Complex) &#123;<span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        rep(i, <span class="number">0</span>, n - <span class="number">1</span>) A[i] = (Complex) &#123;(<span class="keyword">double</span>) a[i], <span class="number">0</span>&#125;;</span><br><span class="line">        rep(i, <span class="number">0</span>, m - <span class="number">1</span>) B[i] = (Complex) &#123;(<span class="keyword">double</span>) b[i], <span class="number">0</span>&#125;;</span><br><span class="line">        rep(i, <span class="number">0</span>, r - <span class="number">1</span>) rev[i] = (rev[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; (l - <span class="number">1</span>));</span><br><span class="line">        dft(A, r, <span class="literal">false</span>); dft(B, r, <span class="literal">false</span>);</span><br><span class="line">        rep(i, <span class="number">0</span>, r - <span class="number">1</span>) A[i] = A[i] * B[i];</span><br><span class="line">        dft(A, r, <span class="literal">true</span>);</span><br><span class="line">        rep(i, <span class="number">0</span>, n + m - <span class="number">2</span>) c[i] = A[i].r / r + <span class="number">0.5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[N], b[N];</span><br><span class="line">ll c[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LTJ</span></span><br><span class="line">    freopen(<span class="string">"data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    read(n); read(m);</span><br><span class="line">    rep(i, <span class="number">0</span>, n - <span class="number">1</span>) read(a[i]);</span><br><span class="line">    drep(i, n - <span class="number">1</span>, <span class="number">0</span>) read(b[i]), b[i + n] = b[i];</span><br><span class="line">    ll pa = <span class="number">0</span>, pb = <span class="number">0</span>, sa = <span class="number">0</span>, sb = <span class="number">0</span>;</span><br><span class="line">    rep(i, <span class="number">0</span>, n - <span class="number">1</span>) &#123;</span><br><span class="line">        pa += (ll) a[i] * a[i];</span><br><span class="line">        pb += (ll) b[i] * b[i];</span><br><span class="line">        sa += a[i]; sb += b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    Poly::mul(a, b, n, n * <span class="number">2</span>, c);</span><br><span class="line">    ll ans = <span class="number">4e18</span>;</span><br><span class="line">    rep(i, n - <span class="number">1</span>, n * <span class="number">2</span> - <span class="number">2</span>) &#123;</span><br><span class="line">        rep(x, -m, m) </span><br><span class="line">            tomin(ans, pa + pb + (ll) n * x * x - <span class="number">2</span> * c[i] + <span class="number">2</span> * x * (sa - sb));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/OI/">OI</a>
+            <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%B9%98%E6%B3%95/">多项式乘法</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/2020/02/04/%E3%80%8CHAOI2017%E3%80%8D%E6%96%B9%E6%A1%88%E6%95%B0/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">「HAOI2017」方案数</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2020/02/01/%E3%80%8CAHOI-HNOI2017%E3%80%8D%E5%8D%95%E6%97%8B/">
+        <span class="next-text nav-default">「AHOI / HNOI2017」单旋</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:chenhowe0529@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/LittleJianCH" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/little-jian" target="_blank" rel="noopener" class="iconfont icon-zhihu" title="zhihu"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chen Howe</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

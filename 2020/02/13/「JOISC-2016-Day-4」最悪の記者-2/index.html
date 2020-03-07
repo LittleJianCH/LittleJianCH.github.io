@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="「JOISC 2016 Day 4」最悪の記者 2"/><meta name="keywords" content="OI, 线段树, 贪心, Little Jian" /><link rel="alternate" href="/atom.xml" title="Little Jian"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://yoursite.com/2020/02/13/「JOISC-2016-Day-4」最悪の記者-2/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":true};
+</script>
+
+    <title>「JOISC 2016 Day 4」最悪の記者 2 - Little Jian</title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Little Jian</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/emacs/">
+        <li class="mobile-menu-item">Emacs
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Little Jian</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/emacs/">
+            Emacs
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">「JOISC 2016 Day 4」最悪の記者 2
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-13
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目："><span class="toc-text">题目：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路："><span class="toc-text">思路：</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h1><p>时间来到了 22 世纪，程序设计竞赛已经作为一种智力运动被广泛接受，并且经常出现在各种新闻媒体中，如电视和报纸。</p>
+<p>你是 JOI 新闻社的一名记者，负责写报道程序设计竞赛的文章。</p>
+<p>昨天举行了一场世界级的程序设计竞赛，共有 $N$ 名选手参加。为了写一篇关于这个竞赛的文章，你得知了如下信息：</p>
+<ul>
+<li>作为国际奥林匹克竞赛，选手来自于不同的国家。国家从 $1$ 到 $N$ 编号，可能有多于一名选手来自同一国家，也可能有一些国家的选手没有参赛；</li>
+<li>比赛共 $5$ 小时；</li>
+<li>选手在比赛中获得的分数不会在获得之后减少；</li>
+<li>在比赛开始两小时的时候，不存在两名选手平手。在此时的榜单上，排名第 $i\ (1\le i\le N)$ 的选手来自国家 $A_i$，并获得了 $B_i$ 分；</li>
+<li>在比赛结束的时候，不存在两名选手平手。在终榜上，排名第 $i\ (1\le i\le N)$ 的选手来自国家 $C_i$，并获得了 $D_i$ 分。</li>
+</ul>
+<p>然而，在写文章的阶段，发现榜上显示的选手国家是有问题的。榜上选手的国籍可能显示有误，但是显示的选手分数是一定正确的。</p>
+<p>所以，你可以通过修改同一选手的国籍来避免矛盾（但是你不能修改选手的得分）。也就是说，我们要通过修改 $A_1,A_2,\ldots,A_N,C_1,C_2,\ldots C_N$ 中尽可能少的值，使得满足以下条件：</p>
+<ul>
+<li>存在一个 $1\ldots N$ 的排列 $x_1,x_2,\ldots x_N$，对于每个 $i=1,2,\ldots N$，满足 $A_i=C_{x_i}$ 且 $B_i\le D_{x_i}$。</li>
+</ul>
+<p>请求出最少要做出多少次修改才能使给出的信息不会互相矛盾。</p>
+<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><p>按照题意，对于每一个 $d_i$ ，要尽量找一个 $b_j&lt;d_i$ ，同时尽量满足 $a_j=c_i$ 。</p>
+<p>考虑贪心，按照 $d_i$ 的值从小到大枚举。设 $j$ 为满足 $b_j&lt;d_i,a_j=c_i$ 时， $b_j$ 最大的 $j$ （如果不存在就一定要改国籍了），如果将 $i,j$ 配对后，全局上不会出现有人无法配对的情况，那就把他们作为一对。不然的话可以发现 $b_j$ 变小也还会出现有人无法配对的情况，所以 $i$ 也必须修改国籍。</p>
+<p>然后找 $j$ 的过程可以通过 $n$ 个 <code>multiset</code> 实现，然后判断是否无法配对可以通过线段树实现（大致就是 $b_i$ 处加一， $d_i$ 处减一，如果出现一个前缀和小于 $0$ 就会出现无法配对的情况），复杂度是 $O(n \log n)$ 。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i, a, b) for (int i(a), i##_END_(b); i &lt;= i##_END_; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> drep(i, a, b) for (int i(a), i##_END_(b); i &gt;= i##_END_; i--)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">4e5</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[N], b[N], c[N], d[N], val[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Data</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> sum, mn;</span><br><span class="line">  Data <span class="keyword">operator</span>+(<span class="keyword">const</span> Data d) <span class="keyword">const</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (Data)&#123;sum + d.sum, <span class="built_in">std</span>::min(mn, sum + d.mn)&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; seg[N &lt;&lt; <span class="number">2</span>];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ls (o &lt;&lt; 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rs (o &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mid ((L + R) &gt;&gt; 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson ls, L, mid</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson rs, mid + 1, R</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">upd</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> v, <span class="keyword">int</span> o = <span class="number">1</span>, <span class="keyword">int</span> L = <span class="number">1</span>, <span class="keyword">int</span> R = N - <span class="number">5</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (L == R) &#123;</span><br><span class="line">    seg[o].mn += v;</span><br><span class="line">    seg[o].sum += v;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (x &lt;= mid)</span><br><span class="line">    upd(x, v, lson);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    upd(x, v, rson);</span><br><span class="line">  seg[o] = seg[ls] + seg[rs];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt; st[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// freopen("data.in", "r", stdin);</span></span><br><span class="line">  <span class="keyword">int</span> n, tot = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">  rep(i, <span class="number">1</span>, n) <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, a + i, b + i);</span><br><span class="line">  rep(i, <span class="number">1</span>, n) <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, c + i, d + i);</span><br><span class="line">  rep(i, <span class="number">1</span>, n) &#123;</span><br><span class="line">    val[++tot] = b[i];</span><br><span class="line">    val[++tot] = d[i];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">std</span>::sort(val + <span class="number">1</span>, val + <span class="number">1</span> + tot);</span><br><span class="line">  tot = <span class="built_in">std</span>::unique(val + <span class="number">1</span>, val + <span class="number">1</span> + tot) - val - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">  rep(i, <span class="number">1</span>, n) &#123;</span><br><span class="line">    b[i] = <span class="built_in">std</span>::lower_bound(val + <span class="number">1</span>, val + <span class="number">1</span> + tot, b[i]) - val;</span><br><span class="line">    d[i] = <span class="built_in">std</span>::lower_bound(val + <span class="number">1</span>, val + <span class="number">1</span> + tot, d[i]) - val;</span><br><span class="line">    st[a[i]].insert(b[i]);</span><br><span class="line">    upd(b[i], <span class="number">1</span>);</span><br><span class="line">    upd(d[i], <span class="number">-1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  drep(i, n, <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (st[c[i]].empty() || *st[c[i]].begin() &gt; d[i]) &#123;</span><br><span class="line">      ans++;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt;::iterator it = --st[c[i]].upper_bound(d[i]);</span><br><span class="line">      <span class="keyword">int</span> tmp = *it;</span><br><span class="line">      upd(tmp, <span class="number">-1</span>);</span><br><span class="line">      upd(d[i], <span class="number">1</span>);</span><br><span class="line">      st[c[i]].erase(it);</span><br><span class="line">      <span class="keyword">if</span> (seg[<span class="number">1</span>].mn &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        ans++;</span><br><span class="line">        upd(tmp, <span class="number">1</span>);</span><br><span class="line">        upd(d[i], <span class="number">-1</span>);</span><br><span class="line">        st[c[i]].insert(tmp);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/OI/">OI</a>
+            <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/">线段树</a>
+            <a href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/2020/02/14/%E3%80%8CAHOI-HNOI2017%E3%80%8D%E6%8A%9B%E7%A1%AC%E5%B8%81/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">「AHOI / HNOI2017」抛硬币</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2020/02/04/%E3%80%8CHAOI2017%E3%80%8D%E5%85%AB%E7%BA%B5%E5%85%AB%E6%A8%AA/">
+        <span class="next-text nav-default">「HAOI2017」八纵八横</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:chenhowe0529@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/LittleJianCH" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/little-jian" target="_blank" rel="noopener" class="iconfont icon-zhihu" title="zhihu"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chen Howe</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

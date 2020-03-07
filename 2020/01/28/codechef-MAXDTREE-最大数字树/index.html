@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="codechef-MAXDTREE 最大数字树"/><meta name="keywords" content="树形dp, 数位dp, OI, Little Jian" /><link rel="alternate" href="/atom.xml" title="Little Jian"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://yoursite.com/2020/01/28/codechef-MAXDTREE-最大数字树/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":true};
+</script>
+
+    <title>codechef-MAXDTREE 最大数字树 - Little Jian</title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Little Jian</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/emacs/">
+        <li class="mobile-menu-item">Emacs
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Little Jian</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/emacs/">
+            Emacs
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">codechef-MAXDTREE 最大数字树
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-01-28
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目："><span class="toc-text">题目：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路："><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码："><span class="toc-text">代码：</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h2><p>给定 $N$ 个节点的树，节点编号为 $1$ 到 $N$，$1$ 号节点为根节点。每个节点包含一位数，记第 $i$ 个节点的数为 $d_i$。</p>
+<p>子树是满足下列条件的非空子图：对于任意节点 $v$，如果 $v$ 包含于子树 $S$，那么 $v$ 的父节点同样包含于 $S$。再此定义下，任意子树都包含根节点。子树中的节点按照其先序遍历顺序排序，可以用下面的算法描述：</p>
+<ul>
+<li>记当前节点为 $c$，初始时，$c = 1$；</li>
+<li>将当前节点添加到节点顺序序列末尾；</li>
+<li>按照编号升序枚举 $c$ 的所有儿子；</li>
+<li>对于每个儿子，将当前节点改为该儿子并递归处理。</li>
+</ul>
+<p>我们记子树 $S$ 的数字串为 $D(S)$，这是一个长度等于子树大小的字符串，其第 $i$ 位为子树节点顺序中第 $i$ 位的节点的数字。$D(S)$ 也可以视为一个整数。</p>
+<p>记 $\text{maxDigit}(x)$ 为正整数 $x$ 中的最大数位。我们定义一个无穷序列如下：</p>
+<ul>
+<li>$a_1 = 1$</li>
+<li>$a_n = a_{n-1} + \text{maxDigit}(a_{n−1}),(n &gt; 1)$</li>
+</ul>
+<p>比如，序列的前若干项为 $1, 2, 4, 8, 16, 22$。</p>
+<p>我们称子树 $S$ 是好的，当且仅当 $D(S)$ 被包含于序列 $a$ 中。你需要求出有多少好的子树。由于答案可能很大，请输出答案对 $10^9 + 7$ 取模的结果。</p>
+<h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>先考虑如果判断一个数是否出现在序列 $a$ 中（毕竟你不可能把这个无穷序列构造出来吧）</p>
+<p>因为 $\text{maxDigit(x)}&lt;10$，每次进位最多向上一位进 $1$ 。那也就是说，如果忽略最后个位，前面几位组成的数字都是 $x=x+1$ 这样一路变上去的。所以如果忽略个位（即比较的时候认为 $125=123$），那么每一个数字都是会出现在这个无穷序列中的。所以考虑一个数字能否出现在 $a$ 序列中，就只用考虑在构造出几位的前提下，个数能否等于要求的数的个位即可。（如判断 $123456$ 时，只要考虑去构造 $12345x$，如果 $x$ 可以等于 $6$ 就说明 $123456$ 在 $a$ 序列中）。</p>
+<p>设 $f[i][p][a]$ 表示当最大数位为 $p$ 时，当前个位为 $a$ 时，想要让第 $i$ 位加 $1$ ，个位<strong>最小</strong>会变成几。</p>
+<p>再设 $g[i][x][p][a]$ 表示当最大数位为 $p$ 时，当前个位为 $a$ 时，想要让第 $i$ 位加 $x$ ，个位<strong>最小</strong>会变成几。</p>
+<p>预处理就只要用 $f[i-1]$ 连续进位 $10$ 次就能得到 $f[i]$，$g$ 也能用类似的方法通过 $f$ 求出。</p>
+<p>然后通过这两个数组就能在树上 $\text{dp}$ 了，设 $dp[o][i][p][x]$ 表示当前点为 $o$ （代码中是 $\text{dfs}$ 序为 $o$），数字填到了第 $i$ 位（高往低填），最大数位为 $p$，个位为 $x$ 的方案数。为了满足题目中子树的要求，所以 $o$ 只能从在 $o$ 父亲的子树内且在 $o$ 之前遍历到的点中转移过来，即 $dfn[t] \in [dfn[f],dfn[o])$ 。满足要求的状态只要 $x=d[o],i=0$ 即可。</p>
+<p>然后前缀和优化一下转移，复杂度就能做到 $O(10^2n^2+10^3n)$ 了。</p>
+<h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> File(_) freopen(#_ <span class="meta-string">".in"</span>, <span class="meta-string">"r"</span>, stdin), freopen(#_ <span class="meta-string">".out"</span>, <span class="meta-string">"w"</span>, stdout)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ALL(x) x.begin(), x.end()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mset(a, b) memset(a, b, sizeof a)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i, a, b) for(int i(a), i##_END_(b); i &lt;= i##_END_; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> drep(i, a, b) for(int i(a), i##_END_(b); i &gt;= i##_END_; i--)</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomax</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> a &lt; b ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomin</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> b &lt; a ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> db;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">read</span>(<span class="title">T</span> &amp;<span class="title">a</span>) &#123;</span></span><br><span class="line">    <span class="keyword">char</span> c; <span class="keyword">bool</span> f = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(c = getchar(); !<span class="built_in">isdigit</span>(c); c = getchar()) f |= (c == <span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">for</span>(a = <span class="number">0</span>; <span class="built_in">isdigit</span>(c); c = getchar()) a = (a &lt;&lt; <span class="number">1</span>) + (a &lt;&lt; <span class="number">3</span>) + c - <span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">if</span>(f) a = -a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> cur1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">505</span>, MOD = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, d[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> f[N][<span class="number">10</span>][<span class="number">10</span>], g[N][<span class="number">10</span>][<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">initFG</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    rep(p, <span class="number">0</span>, <span class="number">9</span>) rep(x, <span class="number">0</span>, <span class="number">9</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(p == <span class="number">0</span> &amp;&amp; x == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">int</span> t = x;</span><br><span class="line">        <span class="keyword">while</span>(t &lt; <span class="number">10</span>) t += max(p, t);</span><br><span class="line">        f[<span class="number">1</span>][p][x] = t % <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    rep(i, <span class="number">2</span>, n - <span class="number">1</span>) rep(p, <span class="number">0</span>, <span class="number">9</span>) rep(x, <span class="number">0</span>, <span class="number">9</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> t = x;</span><br><span class="line">        rep(q, <span class="number">1</span>, <span class="number">10</span>) t = f[i - <span class="number">1</span>][max(q - <span class="number">1</span>, p)][t];</span><br><span class="line">        f[i][p][x] = t;</span><br><span class="line">    &#125;</span><br><span class="line">    mset(g, <span class="number">-1</span>);</span><br><span class="line">    rep(i, <span class="number">1</span>, n - <span class="number">1</span>) rep(v, <span class="number">0</span>, <span class="number">9</span>) rep(p, <span class="number">0</span>, <span class="number">9</span>) rep(x, <span class="number">0</span>, <span class="number">9</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(p == <span class="number">0</span> &amp;&amp; x == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">int</span> t = x;</span><br><span class="line">        rep(q, <span class="number">1</span>, v) t = f[i][max(q - <span class="number">1</span>, p)][t];</span><br><span class="line">        g[i][v][p][x] = t;</span><br><span class="line">    &#125;</span><br><span class="line">    rep(v, <span class="number">0</span>, <span class="number">9</span>) rep(p, <span class="number">0</span>, <span class="number">9</span>) rep(x, <span class="number">0</span>, <span class="number">9</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(p == <span class="number">0</span> &amp;&amp; x == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">int</span> t = x;</span><br><span class="line">        <span class="keyword">while</span>(t &lt; <span class="number">10</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(t == v) g[<span class="number">0</span>][v][p][x] = t;</span><br><span class="line">            t = t + max(p, t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dfn[N], fa[N], mp[N], cur;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> o, <span class="keyword">int</span> f)</span> </span>&#123;</span><br><span class="line">    dfn[o] = ++cur; mp[cur] = o; fa[o] = f;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v : G[o]) &#123;</span><br><span class="line">        <span class="keyword">if</span>(v == f) <span class="keyword">continue</span>;</span><br><span class="line">        dfs(v, o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dp[N][N][<span class="number">10</span>][<span class="number">10</span>], sum[N][N][<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> cur2;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// printf("%lf\n", (&amp;cur2 - &amp;cur1) / 1024.0 / 1024);</span></span><br><span class="line">    <span class="keyword">int</span> a, b, cas;</span><br><span class="line">    initFG(<span class="number">500</span>);</span><br><span class="line">    read(cas);</span><br><span class="line">    <span class="keyword">while</span>(cas--) &#123;</span><br><span class="line">        read(n);</span><br><span class="line">        rep(i, <span class="number">1</span>, n) G[i].clear();</span><br><span class="line">        rep(i, <span class="number">2</span>, n) &#123;</span><br><span class="line">            read(a); read(b);</span><br><span class="line">            G[a].push_back(b);</span><br><span class="line">            G[b].push_back(a);</span><br><span class="line">        &#125;</span><br><span class="line">        rep(i, <span class="number">1</span>, n) sort(ALL(G[i]));</span><br><span class="line">        rep(i, <span class="number">1</span>, n) read(d[i]);</span><br><span class="line">        cur = <span class="number">0</span>; dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        mset(dp, <span class="number">0</span>); mset(sum, <span class="number">0</span>);</span><br><span class="line">        rep(i, <span class="number">0</span>, n - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = g[i][d[<span class="number">1</span>]][<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(x == <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">            dp[i][<span class="number">1</span>][d[<span class="number">1</span>]][x] = <span class="number">1</span>;</span><br><span class="line">            sum[i][<span class="number">1</span>][d[<span class="number">1</span>]][x] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        rep(i, <span class="number">2</span>, n) &#123;</span><br><span class="line">            <span class="keyword">int</span> o = mp[i];</span><br><span class="line">            rep(j, <span class="number">0</span>, n - <span class="number">1</span>) rep(p, <span class="number">0</span>, <span class="number">9</span>) rep(x, <span class="number">0</span>, <span class="number">9</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> nxt = g[j][d[o]][p][x], tp = max(d[o], p);</span><br><span class="line">                <span class="keyword">if</span>(nxt == <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">                (dp[j][i][tp][nxt] += (sum[j + <span class="number">1</span>][i - <span class="number">1</span>][p][x] - sum[j + <span class="number">1</span>][dfn[fa[o]] - <span class="number">1</span>][p][x]) % MOD) %= MOD;</span><br><span class="line">            &#125;</span><br><span class="line">            rep(j, <span class="number">0</span>, n - <span class="number">1</span>) rep(p, <span class="number">0</span>, <span class="number">9</span>) rep(x, <span class="number">0</span>, <span class="number">9</span>) </span><br><span class="line">                sum[j][i][p][x] = (dp[j][i][p][x] + sum[j][i - <span class="number">1</span>][p][x]) % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        rep(i, <span class="number">1</span>, n) rep(p, <span class="number">0</span>, <span class="number">9</span>) (ans += dp[<span class="number">0</span>][i][p][d[mp[i]]]) %= MOD;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (ans + MOD) % MOD);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E6%A0%91%E5%BD%A2dp/">树形dp</a>
+            <a href="/tags/%E6%95%B0%E4%BD%8Ddp/">数位dp</a>
+            <a href="/tags/OI/">OI</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/2020/01/30/%E3%80%8CHNOI2016%E3%80%8D%E5%BA%8F%E5%88%97/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">「HNOI2016」序列</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2020/01/28/%E3%80%8C%E7%BD%91%E7%BB%9C%E6%B5%81-24-%E9%A2%98%E3%80%8D%E5%B0%8F%E7%BB%93/">
+        <span class="next-text nav-default">「网络流 24 题」小结</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:chenhowe0529@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/LittleJianCH" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/little-jian" target="_blank" rel="noopener" class="iconfont icon-zhihu" title="zhihu"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chen Howe</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

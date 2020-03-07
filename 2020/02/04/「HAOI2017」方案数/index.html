@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="「HAOI2017」方案数"/><meta name="keywords" content="OI, 动态规划, 计数问题, Little Jian" /><link rel="alternate" href="/atom.xml" title="Little Jian"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://yoursite.com/2020/02/04/「HAOI2017」方案数/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":true};
+</script>
+
+    <title>「HAOI2017」方案数 - Little Jian</title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Little Jian</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/emacs/">
+        <li class="mobile-menu-item">Emacs
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Little Jian</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/emacs/">
+            Emacs
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">「HAOI2017」方案数
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-04
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目："><span class="toc-text">题目：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路："><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码："><span class="toc-text">代码：</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h1><p>考虑定义非负整数间的“$ \subseteq $”，如果 $ a \subseteq b $，那么 $ a \land b = a $，其中 $ \land $ 表示二进制下的“与”操作。</p>
+<p>考虑现在有一个无限大的空间，现在你在 $ (0, 0, 0) $，有三种位移操作。</p>
+<ol>
+<li>$ (x, y, z) \to (x’, y, z) $ 当且仅当 $ x \subseteq x’ $；</li>
+<li>$ (x, y, z) \to (x, y’, z) $ 当且仅当 $ y \subseteq y’ $；</li>
+<li>$ (x, y, z) \to (x, y, z’) $ 当且仅当 $ z \subseteq z’ $。</li>
+</ol>
+<p>由于来自东方的神秘力量，有些点被屏蔽了，也就是不能经过了。现在问你到某个点 $ (n, m, r) $ 的方案数，答案对 $ 998244353 $ 取模。</p>
+<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><p>先考虑如何计算从一个点到另一个点的方案数，设终点比起点每维分别多 $a,b,c$ 个 $1$，方案数为 $f[a][b][c]$ 。那么转移如下：</p>
+<p>$$<br>f[a][b][c] = \sum_{x=1}^a {a\choose x}f[a-x][b][c]+\sum_{x=1}^b {b\choose x}f[a][b-x][c]+\sum_{x=1}^c {c\choose x}f[a][b][c-x]<br>$$</p>
+<p>然后设 $g[i]$ 为从起点不经过任何障碍物走到 $i$ 的方案数，$c(i, j)$ 表示从第 $i$ 个点走到第 $j$ 个点的方案数（$0$ 表示起点）：</p>
+<p>$$<br>g[i] = c(0, i) - \sum_{j=1}^{i-1} c(j, i) g[j]<br>$$</p>
+<p>这样就能在 $O(65^4+n^2)$ 的复杂度解决了。</p>
+<h1 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i, a, b) for (int i(a), i##_END_(b); i &lt;= i##_END_; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> drep(i, a, b) for (int i(a), i##_END_(b); i &gt;= i##_END_; i--)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomax</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> a &lt; b ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomin</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> b &lt; a ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">read</span>(<span class="title">T</span> &amp;<span class="title">a</span>) &#123;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> gc getchar()</span></span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">bool</span> f = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(c = gc; !<span class="built_in">isdigit</span>(c); c = gc) f |= (c == <span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">for</span>(a = <span class="number">0</span>; <span class="built_in">isdigit</span>(c); c = gc) a = (a &lt;&lt; <span class="number">1</span>) + (a &lt;&lt; <span class="number">3</span>) + c - <span class="string">'0'</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> gc</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MOD = <span class="number">998244353</span>, N = <span class="number">1e4</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> &#123;</span></span><br><span class="line">    ll x, y, z;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>&lt; (<span class="keyword">const</span> Point p) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(x != p.x) <span class="keyword">return</span> x &lt; p.x;</span><br><span class="line">        <span class="keyword">if</span>(y != p.y) <span class="keyword">return</span> y &lt; p.y;</span><br><span class="line">        <span class="keyword">return</span> z &lt; p.z;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; p[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> dp[<span class="number">70</span>][<span class="number">70</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">if</span>(dp[x][y] != <span class="number">0</span>) <span class="keyword">return</span> dp[x][y];</span><br><span class="line">    <span class="keyword">if</span>(x == y || y == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> dp[x][y] = (C(x - <span class="number">1</span>, y - <span class="number">1</span>) + C(x - <span class="number">1</span>, y)) % MOD;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> f[<span class="number">70</span>][<span class="number">70</span>][<span class="number">70</span>], g[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getF</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    rep(a, <span class="number">0</span>, <span class="number">65</span>) rep(b, <span class="number">0</span>, <span class="number">65</span>) rep(c, <span class="number">0</span>, <span class="number">65</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a == <span class="number">0</span> &amp;&amp; b == <span class="number">0</span> &amp;&amp; c == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">int</span> &amp;now = f[a][b][c];</span><br><span class="line">        rep(x, <span class="number">1</span>, a) (now += (ll) C(a, x) * f[a - x][b][c] % MOD) %= MOD;</span><br><span class="line">        rep(x, <span class="number">1</span>, b) (now += (ll) C(b, x) * f[a][b - x][c] % MOD) %= MOD;</span><br><span class="line">        rep(x, <span class="number">1</span>, c) (now += (ll) C(c, x) * f[a][b][c - x] % MOD) %= MOD;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bitCount</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(x) &#123;</span><br><span class="line">        ans += (x &amp; <span class="number">1</span>);</span><br><span class="line">        x &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calc</span><span class="params">(Point a, Point b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>((b.x &amp; a.x) != a.x) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>((b.y &amp; a.y) != a.y) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>((b.z &amp; a.z) != a.z) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> f[bitCount(b.x ^ a.x)][bitCount(b.y ^ a.y)][bitCount(b.z ^ a.z)];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LTJ</span></span><br><span class="line">    freopen(<span class="string">"data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    ll n, m, r;</span><br><span class="line">    <span class="keyword">int</span> o;</span><br><span class="line">    read(n); read(m); read(r); read(o);</span><br><span class="line">    p[<span class="number">1</span>] = (Point) &#123;n, m, r&#125;;</span><br><span class="line">    rep(i, <span class="number">1</span>, o) &#123;</span><br><span class="line">        read(n); read(m); read(r);</span><br><span class="line">        p[i + <span class="number">1</span>] = (Point) &#123;n, m, r&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">std</span>::sort(p + <span class="number">1</span>, p + <span class="number">1</span> + (++o));</span><br><span class="line">    getF();</span><br><span class="line">    rep(i, <span class="number">1</span>, o) &#123;</span><br><span class="line">        g[i] = calc((Point) &#123;<span class="number">0l</span>l, <span class="number">0l</span>l, <span class="number">0l</span>l&#125;, p[i]);</span><br><span class="line">        rep(j, <span class="number">1</span>, i - <span class="number">1</span>) &#123;</span><br><span class="line">            (g[i] -= (ll) g[j] * calc(p[j], p[i]) % MOD) %= MOD;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (g[o] + MOD) % MOD);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/OI/">OI</a>
+            <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+            <a href="/tags/%E8%AE%A1%E6%95%B0%E9%97%AE%E9%A2%98/">计数问题</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/2020/02/04/%E3%80%8CHAOI2017%E3%80%8D%E5%85%AB%E7%BA%B5%E5%85%AB%E6%A8%AA/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">「HAOI2017」八纵八横</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2020/02/01/%E3%80%8CAHOI-HNOI2017%E3%80%8D%E7%A4%BC%E7%89%A9/">
+        <span class="next-text nav-default">「AHOI / HNOI2017」礼物</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:chenhowe0529@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/LittleJianCH" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/little-jian" target="_blank" rel="noopener" class="iconfont icon-zhihu" title="zhihu"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chen Howe</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>

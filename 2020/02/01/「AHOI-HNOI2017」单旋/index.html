@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="「AHOI / HNOI2017」单旋"/><meta name="keywords" content="OI, 线段树, 平衡树, 模拟, Little Jian" /><link rel="alternate" href="/atom.xml" title="Little Jian"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
+<link rel="canonical" href="http://yoursite.com/2020/02/01/「AHOI-HNOI2017」单旋/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" /><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":true};
+</script>
+
+    <title>「AHOI / HNOI2017」单旋 - Little Jian</title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Little Jian</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/emacs/">
+        <li class="mobile-menu-item">Emacs
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Little Jian</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/emacs/">
+            Emacs
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">「AHOI / HNOI2017」单旋
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-02-01
+        </span></div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目："><span class="toc-text">题目：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路："><span class="toc-text">思路：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码："><span class="toc-text">代码：</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h1 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h1><p>H 国是一个热爱写代码的国家，那里的人们很小去学校学习写各种各样的数据结构。伸展树（splay）是一种数据结构，因为代码好写，功能多，效率高，掌握这种数据结构成为了 H 国的必修技能。有一天，邪恶的「卡」带着他的邪恶的「常数」来企图毁灭 H 国。「卡」给 H 国的人洗脑说，splay 如果写成单旋的，将会更快。「卡」称「单旋 splay」为「spaly」。虽说他说的很没道理，但还是有 H 国的人相信了，小 H 就是其中之一，spaly 马上成为他的信仰。 而 H 国的国王，自然不允许这样的风气蔓延，国王构造了一组数据，数据由 $m$ 个操作构成，他知道这样的数据肯定打垮 spaly，但是国王还有很多很多其他的事情要做，所以统计每个操作所需要的实际代价的任务就交给你啦。</p>
+<p>数据中的操作分为五种：</p>
+<ol>
+<li>插入操作：向当前非空 spaly 中插入一个关键码为 $\mathrm{key}$ 的新孤立节点。插入方法为，先让 $\mathrm{key}$ 和根比较，如果 $\mathrm{key}$ 比根小，则往左子树走，否则往右子树走，如此反复，直到某个时刻，$\mathrm{key}$ 比当前子树根 $x$ 小，而 $x$ 的左子树为空，那就让 $\mathrm{key}$ 成为 $x$ 的左孩子；<br>或者 $\mathrm{key}$ 比当前子树根 $x$ 大，而 $x$ 的右子树为空，那就让 $\mathrm{key}$ 成为 $x$ 的右孩子。该操作的代价为：插入后，$\mathrm{key}$ 的深度。特别地，若树为空，则直接让新节点成为一个单个节点的树。（各节点关键码互不相等。对于「深度」的解释见末尾对 spaly 的描述）。</li>
+<li>单旋最小值：将 spaly 中关键码最小的元素 $\mathrm{xmin}$ 单旋到根。操作代价为：单旋前 $\mathrm{xmin}$ 的深度。（对于单旋操作的解释见末尾对 spaly 的描述）。</li>
+<li>单旋最大值：将 spaly 中关键码最大的元素 $\mathrm{xmax}$ 单旋到根。操作代价为：单旋前 $\mathrm{xmax}$ 的深度。</li>
+<li>单旋删除最小值：先执行 2 号操作,然后把根删除。由于 2 号操作之后,根没有左子树,所以直接切断根和右子树的联系即可（具体见样例解释）。 操作代价同 2 号操<br>作。</li>
+<li>单旋删除最大值：先执行 3 号操作,然后把根删除。 操作代价同 3 号操作。</li>
+</ol>
+<p><img src="3.png" alt=""></p>
+<p>对于不是 H 国的人，你可能需要了解一些 spaly 的知识，才能完成国王的任务：</p>
+<ul>
+<li>spaly 是一棵二叉树，满足对于任意一个节点 $x$，它如果有左孩子 $\mathrm{lx}$，那么 $\mathrm{lx}$ 的关键码小于 $x$ 的关键码。如果有右孩子 $\mathrm{rx}$，那么 $\mathrm{rx}$ 的关键码大于 $x$ 的关键码。</li>
+<li>一个节点在 spaly 的深度定义为：从根节点到该节点的路径上一共有多少个节点（包括自己）。</li>
+<li>单旋操作是对于一棵树上的节点 $x$ 来说的。一开始,设 $f$ 为 $x$ 在树上的父亲。如果 $x$ 为 $f$ 的左孩子，那么执行 $\mathrm{zig}(x)$ 操作（如上图中，左边的树经过 $\mathrm{zig}(x)$ 变为了右边的树），否则执行 $\mathrm{zag}(x)$ 操作（在上图中，将右边的树经过 $\mathrm{zag}(f)$ 就变成了左边的树）。每当执<br>行一次 $\mathrm{zig}(x)$ 或者 $\mathrm{zag}(x)$，$x$ 的深度减小 $1$，如此反复，直到 $x$ 为根。总之，单旋 $x$ 就是通过反复执行 $\mathrm{zig}$ 和 $\mathrm{zag}$ 将 $x$ 变为根。</li>
+</ul>
+<h1 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h1><p>手玩一些数据会发现，$\text{spaly}$ 的操作还是比较有规律的，比如现在有这样一棵树：</p>
+<p><img src="1.png" alt=""></p>
+<p>如果对将橘色的点 $o$ 旋转到根，树就变成了这个样子：</p>
+<p><img src="2.png" alt=""></p>
+<p>可以发现就是把 $o$ 的儿子接到 $o$ 的父亲上，然后把原来的根接在 $o$ 下面即可。</p>
+<p>因此父子关系就很好维护了，只要处理好深度即可。可以发现如果是 $2,3$ 操作，那么 $o$ 以外的点深度都加一。 $4,5$ 操作就是把子树内的所有点深度都减一。根据二叉排序树的性质，每次修改深度的点都在一个值域区间内，所以只要用一个线段树按照权值维护深度即可。</p>
+<p>再考虑如何插入一个值为 $x$ 的点。树为空、恰好为最大/小值的的情况都比较简单。而对于剩下的情况，只要找到 $x$ 的前驱和后继，这两点中深度更大的那个点 $x$ 该在的那一侧肯定是空的（不然它就应该是前驱或后继），然后直接接上就行了。</p>
+<p>插入时找前驱和后继通过 <code>std::set</code> 实现，整个算法的复杂度就是 $O(n\log n)$ 了。</p>
+<p><del>代码实现也不算复杂，毕竟很多地方都是重复的。</del></p>
+<h1 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rep(i, a, b) for (int i(a), i##_END_(b); i &lt;= i##_END_; i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> drep(i, a, b) for (int i(a), i##_END_(b); i &gt;= i##_END_; i--)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomax</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> a &lt; b ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;class T&gt; <span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">tomin</span><span class="params">(T &amp;a, T b)</span> </span>&#123;<span class="keyword">return</span> b &lt; a ? a = b, <span class="number">1</span> : <span class="number">0</span>;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">read</span>(<span class="title">T</span> &amp;<span class="title">a</span>) &#123;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> gc getchar()</span></span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">bool</span> f = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(c = gc; !<span class="built_in">isdigit</span>(c); c = gc) f |= (c == <span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">for</span>(a = <span class="number">0</span>; <span class="built_in">isdigit</span>(c); c = gc) a = (a &lt;&lt; <span class="number">1</span>) + (a &lt;&lt; <span class="number">3</span>) + c - <span class="string">'0'</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> gc</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e5</span> + <span class="number">5</span>, M = N * <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> add[M], ls[M], rs[M], seg_rt, tot_seg;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mid ((L + R) &gt;&gt; 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson ls[o], L, mid</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson rs[o], mid + 1, R</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">upd</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> x, <span class="keyword">int</span> &amp;o = seg_rt, <span class="keyword">int</span> L = <span class="number">1</span>, <span class="keyword">int</span> R = <span class="number">1e9</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!o) o = ++tot_seg;</span><br><span class="line">    <span class="keyword">if</span>(L == l &amp;&amp; R == r) &#123;</span><br><span class="line">        add[o] += x;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(r &lt;= mid) upd(l, r, x, lson);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(l &gt; mid) upd(l, r, x, rson);</span><br><span class="line">    <span class="keyword">else</span> upd(l, mid, x, lson), upd(mid + <span class="number">1</span>, r, x, rson);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">qry</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> o = seg_rt, <span class="keyword">int</span> L = <span class="number">1</span>, <span class="keyword">int</span> R = <span class="number">1e9</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!o) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(L == R) <span class="keyword">return</span> add[o];</span><br><span class="line">    <span class="keyword">if</span>(x &lt;= mid) <span class="keyword">return</span> add[o] + qry(x, lson);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> add[o] + qry(x, rson);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> son[N][<span class="number">2</span>], fa[N], dep[N], val[N];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Data</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val, id;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>&lt; (<span class="keyword">const</span> Data d) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> val &lt; d.val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">set</span>&lt;Data&gt; st;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> tot = <span class="number">0</span>, rt;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">link</span><span class="params">(Data d, Data f)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(son[f.id][d.val &gt; f.val] != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    dep[d.id] = (dep[f.id] + qry(f.val)) - qry(d.val) + <span class="number">1</span>;</span><br><span class="line">    fa[d.id] = f.id; son[f.id][d.val &gt; f.val] = d.id;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> id = ++tot;</span><br><span class="line">    Data d = (Data) &#123;x, id&#125;;</span><br><span class="line">    val[id] = x;</span><br><span class="line">    <span class="keyword">if</span>(st.size() == <span class="number">0</span>) &#123;</span><br><span class="line">        dep[id] = <span class="number">1</span> - qry(x);</span><br><span class="line">        rt = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(d &lt; *st.begin()) </span><br><span class="line">        link(d, *st.begin());</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(*--st.end() &lt; d) </span><br><span class="line">        link(d, *--st.end());</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">set</span>&lt;Data&gt;::iterator it = st.upper_bound(d);</span><br><span class="line">        Data d2 = *it;</span><br><span class="line">        Data d1 = *(--it);</span><br><span class="line">        <span class="keyword">if</span>(!link(d, d1)) assert(link(d, d2));</span><br><span class="line">    &#125;</span><br><span class="line">    st.insert(d);</span><br><span class="line">    <span class="keyword">return</span> dep[d.id] + qry(d.val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">spaly_min</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> o = st.begin()-&gt;id;</span><br><span class="line">    <span class="keyword">int</span> ans = dep[o] + qry(val[o]);</span><br><span class="line">    <span class="keyword">if</span>(o != rt) &#123;</span><br><span class="line">        <span class="keyword">int</span> f = fa[o];</span><br><span class="line">        son[f][<span class="number">0</span>] = son[o][<span class="number">1</span>];</span><br><span class="line">        fa[son[o][<span class="number">1</span>]] = f;</span><br><span class="line">        upd(val[f], <span class="number">1e9</span>, <span class="number">1</span>);</span><br><span class="line">        son[o][<span class="number">1</span>] = rt;</span><br><span class="line">        fa[rt] = o;</span><br><span class="line">        fa[rt = o] = <span class="number">0</span>;</span><br><span class="line">        dep[rt] = <span class="number">1</span> - qry(val[rt]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">spaly_max</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> o = (--st.end())-&gt;id;</span><br><span class="line">    <span class="keyword">int</span> ans = dep[o] + qry(val[o]);</span><br><span class="line">    <span class="keyword">if</span>(o != rt) &#123;</span><br><span class="line">        <span class="keyword">int</span> f = fa[o];</span><br><span class="line">        son[f][<span class="number">1</span>] = son[o][<span class="number">0</span>];</span><br><span class="line">        fa[son[o][<span class="number">0</span>]] = f;</span><br><span class="line">        upd(<span class="number">1</span>, val[f], <span class="number">1</span>);</span><br><span class="line">        son[o][<span class="number">0</span>] = rt;</span><br><span class="line">        fa[rt] = o;</span><br><span class="line">        fa[rt = o] = <span class="number">0</span>;</span><br><span class="line">        dep[rt] = <span class="number">1</span> - qry(val[rt]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">remove_min</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> o = st.begin()-&gt;id;</span><br><span class="line">    <span class="keyword">int</span> ans = dep[o] + qry(val[o]);</span><br><span class="line">    <span class="keyword">if</span>(o == rt) &#123;</span><br><span class="line">        rt = son[o][<span class="number">1</span>];</span><br><span class="line">        fa[rt] = <span class="number">0</span>;</span><br><span class="line">        upd(<span class="number">1</span>, <span class="number">1e9</span>, <span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> f = fa[o];</span><br><span class="line">        son[f][<span class="number">0</span>] = son[o][<span class="number">1</span>];</span><br><span class="line">        fa[son[o][<span class="number">1</span>]] = f;</span><br><span class="line">        upd(<span class="number">1</span>, val[f] - <span class="number">1</span>, <span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    st.erase((Data) &#123;val[o], o&#125;);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">remove_max</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> o = (--st.end())-&gt;id;</span><br><span class="line">    <span class="keyword">int</span> ans = dep[o] + qry(val[o]);</span><br><span class="line">    <span class="keyword">if</span>(o == rt) &#123;</span><br><span class="line">        rt = son[o][<span class="number">0</span>];</span><br><span class="line">        fa[rt] = <span class="number">0</span>;</span><br><span class="line">        upd(<span class="number">1</span>, <span class="number">1e9</span>, <span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> f = fa[o];</span><br><span class="line">        son[f][<span class="number">1</span>] = son[o][<span class="number">0</span>];</span><br><span class="line">        fa[son[o][<span class="number">0</span>]] = f;</span><br><span class="line">        upd(val[f] + <span class="number">1</span>, <span class="number">1e9</span>, <span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    st.erase((Data) &#123;val[o], o&#125;);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LTJ</span></span><br><span class="line">    freopen(<span class="string">"data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">int</span> n, x, f;</span><br><span class="line">    read(n);</span><br><span class="line">    <span class="keyword">while</span>(n--) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;f);</span><br><span class="line">        <span class="keyword">if</span>(f == <span class="number">1</span>) &#123;</span><br><span class="line">            read(x);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, insert(x));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(f == <span class="number">2</span>) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, spaly_min());</span><br><span class="line">        <span class="keyword">if</span>(f == <span class="number">3</span>) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, spaly_max());</span><br><span class="line">        <span class="keyword">if</span>(f == <span class="number">4</span>) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, remove_min());</span><br><span class="line">        <span class="keyword">if</span>(f == <span class="number">5</span>) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, remove_max());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      </div>
+      
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/OI/">OI</a>
+            <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/">线段树</a>
+            <a href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/">平衡树</a>
+            <a href="/tags/%E6%A8%A1%E6%8B%9F/">模拟</a>
+            </div>
+        
+        <nav class="post-nav"><a class="prev" href="/2020/02/01/%E3%80%8CAHOI-HNOI2017%E3%80%8D%E7%A4%BC%E7%89%A9/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">「AHOI / HNOI2017」礼物</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    <a class="next" href="/2020/01/30/%E3%80%8CAHOI-HNOI2018%E3%80%8D%E6%8E%92%E5%88%97/">
+        <span class="next-text nav-default">「AHOI / HNOI2018」排列</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"></div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:chenhowe0529@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/LittleJianCH" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://www.zhihu.com/people/little-jian" target="_blank" rel="noopener" class="iconfont icon-zhihu" title="zhihu"></a>
+        </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Chen Howe</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>
